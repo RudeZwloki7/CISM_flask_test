@@ -5,9 +5,32 @@
 {% endblock %}
 
 {% block content %}
-    <div>
-        <p>Post 1</p>
-        <p>Post 2</p>
-        <p>Post 3</p>
-    </div>
+    {% if current_user.is_authenticated %}
+        {% if form %}
+            <div class="d-flex p-2 justify-content-center ">
+                <form class="justify-content-center w-75 " action="" method="post">
+                    {{ form.hidden_tag() }}
+                    <h5>
+                        {{ form.content.label }}
+                    </h5>
+                        {{ form.content }}<br>
+                        {% for error in form.content.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+
+                    <p>{{ form.submit() }}</p>
+                </form>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="d-flex p-2 justify-content-center">
+            <h3>Чтобы опубликовать свой пост, войдите в свой аккаунт </h3>
+        </div>
+    {% endif %}
+
+    {% for post in posts %}
+        {% include '_post.html' %}
+    {% endfor %}
+
 {% endblock %}
+
