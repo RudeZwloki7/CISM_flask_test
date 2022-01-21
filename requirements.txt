@@ -1,2 +1,4 @@
 Flask
 Flask-SQLAlchemy
+Bcrypt-Flask
+Flask-Login
