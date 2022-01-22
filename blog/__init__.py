@@ -14,7 +14,9 @@ try:
 
     app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{db_user}:{db_password}@{db_host}/{db_name}'
 except KeyError:
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgres:pass@localhost/blog_db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgres://psikunkydnpvzo:4ae7002786d1d1c5adeedfd4ec6c80f58d5ba49d0ccebb' \
+                                            f'691e6091e6504fe8ef@ec2-52-213-119-221.eu-west-1.compute.amazonaws.com:' \
+                                            f'5432/d470c5l9nnj22b'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'test_cism_2022'
