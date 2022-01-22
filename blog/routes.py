@@ -67,3 +67,41 @@ def logout_page():
     logout_user()
     flash('Вы успешно вышли из аккаунта!', category='info')
     return redirect(url_for('feed_page'))
+
+
+@app.route('/archive/<post_id>')
+def archive_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    post.soft_delete()
+    flash('Выбранный пост успешно архивирован.', category='success')
+    return redirect(url_for('feed_page'))
+
+
+@app.route('/recover/<post_id>')
+def recover_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    post.recover()
+    flash('Выбранный пост успешно восстановлен.', category='success')
+    return redirect(url_for('archive_page'))
+
+
+@app.route('/delete/<post_id>')
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    try:
+        db.session.delete(post)
+        db.session.commit()
+        flash('Выбранный пост успешно удален.', category='success')
+    except:
+        flash('При удалении поста возникла ошибка, попробуйте снова.', 'danger')
+    return redirect(url_for('archive_page'))
+
+
+@app.route('/archive')
+@login_required
+def archive_page():
+
+    archived_posts = Post.query.filter_by(is_presented=False, author_id=current_user.id).order_by(
+        Post.post_date.desc()).all()
+
+    return render_template('archive.html', posts=archived_posts)

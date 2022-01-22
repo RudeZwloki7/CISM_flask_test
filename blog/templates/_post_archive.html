@@ -1,0 +1,9 @@
+{% extends '_post.html' %}
+
+{% block edit_post %}
+    {% if current_user == post.author %}
+        <a class="col text-right " data-toggle="tooltip" data-placement="top" title="Архивировать пост"
+           href="{{ url_for('archive_post', post_id=post.id) }}"><i class="fa fa-archive"
+                                                                    style="color: #ea4949"></i></a>
+    {% endif %}
+{% endblock %}

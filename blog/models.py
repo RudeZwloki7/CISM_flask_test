@@ -37,3 +37,7 @@ class Post(db.Model):
     def soft_delete(self):
         self.is_presented = False
         db.session.commit()
+
+    def recover(self):
+        self.is_presented = True
+        db.session.commit()

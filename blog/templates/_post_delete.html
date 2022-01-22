@@ -1,0 +1,15 @@
+{% extends '_post.html' %}
+
+{% block edit_post %}
+    {% if current_user == post.author %}
+        <div class="col text-right" ></div>
+        <a class="mr-3" data-toggle="tooltip" data-placement="top" title="Восстановить пост"
+           href="{{ url_for('recover_post', post_id=post.id) }}"><i class="fa fa-undo"
+                                                                    style="color: #8ef851"></i></a>
+
+        <a data-toggle="tooltip" data-placement="top" title="Удалить пост"
+           href="{{ url_for('delete_post', post_id=post.id) }}"><i class="fa fa-trash"
+                                                                    style="color: #ea4949"></i></a>
+
+    {% endif %}
+{% endblock %}
